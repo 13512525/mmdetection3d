@@ -8,11 +8,22 @@ schedules在训练框架里通常指学习率调度和训练周期规划
 # This schedule is mainly used by models with dynamic voxelization
 # optimizer
 lr = 0.003  # max learning rate
+
+`optim_wrapper`的配置字典，它定义了优化器的封装、优化器本身以及梯度裁剪的设置
+OptimWrapper`类来封装优化器。`OptimWrapper`是MMEngine中提供的一个基础封装器，它简化了优化器的调用（如执行`step`和`zero_grad`），并支持梯度裁剪等功能。
+
 optim_wrapper = dict(
     type='OptimWrapper',
     optimizer=dict(
-        type='AdamW', lr=lr, weight_decay=0.001, betas=(0.95, 0.99)),
+        type='AdamW', lr=lr, weight_decay=0.001, betas=(0.95, 0.99)), AdamW：适合训练具有大量参数的 Transformer 架构
     clip_grad=dict(max_norm=10, norm_type=2),
+ 梯度裁剪  作用：防止梯度爆炸，稳定训练过程 
+     max_norm=10：
+    梯度裁剪的阈值
+    所有梯度向量的范数将被限制 ≤10
+     norm_type=2：
+    使用的范数类型
+    2 表示 L2 范数（欧几里得范数）
 )
 
 
