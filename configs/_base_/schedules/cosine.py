@@ -15,9 +15,16 @@ optim_wrapper = dict(
     clip_grad=dict(max_norm=10, norm_type=2),
 )
 
+
+*参数调度器（Param Scheduler）序列
+参数调度器序列 (param_scheduler)，具体用于控制训练过程中学习率的动态变化策略。它包含两个连续的调度阶段：
+
 param_scheduler = [
     dict(type='LinearLR', start_factor=0.1, by_epoch=False, begin=0, end=1000),
-    dict(
+ 第一阶段：线性预热 (Warmup) 阶段
+ 作用：在训练初期逐步增加学习率，避免初始学习率过大导致训练不稳定
+    dict(第二阶段：余弦退火衰减阶段
+         作用：在主体训练阶段平滑降低学习率，帮助模型收敛到更优解
         type='CosineAnnealingLR',
         begin=0,
         T_max=40,
