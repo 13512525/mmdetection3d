@@ -5,3 +5,14 @@ base文件中 包括的内容信息
  2. 数据集配置（dataset）：定义数据加载、预处理、增强等。
  3. 训练配置（schedules）：定义优化器、学习率策略、训练轮次等。
  4. 运行时配置（runtime）：定义一些与训练/测试环境相关的设置，如日志、工作目录、分布式后端、模型保存、随机种子等。
+
+
+示例：
+ - 通常，一个完整的配置会通过`_base_`继承多个配置文件，例如：
+        ```python
+        _base_ = [
+            '../_base_/models/pointpillars_hv_secfpn_kitti.py',  # 模型配置
+            '../_base_/datasets/kitti-3d-3class.py',             # 数据集配置
+            '../_base_/schedules/schedule_2x.py',                # 训练计划
+            '../_base_/default_runtime.py'                        # 运行时配置
+        ]
