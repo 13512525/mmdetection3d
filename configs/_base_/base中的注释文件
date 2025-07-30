@@ -4,7 +4,46 @@ base文件中 包括的内容信息
  1. 模型配置（model）：定义网络结构、检测头、损失函数等。
  2. 数据集配置（dataset）：定义数据加载、预处理、增强等。
  3. 训练配置（schedules）：定义优化器、学习率策略、训练轮次等。
+          schedules（训练计划配置，如 schedule_1x.py）
+          核心作用： 专门定义训练过程的超参数和策略，特别是那些随时间变化的动态设置。
+          包含的主要内容：
+          优化器 (optimizer):
+          优化器类型 (SGD, AdamW 等)
+          基础学习率 (lr)
+          权重衰减 (weight_decay)
+          动量参数
+          学习率调度策略 (lr_config):
+          策略类型 (step, cosine, poly 等)
+          学习率衰减点 (step)
+          Warmup 设置 (warmup, warmup_ratio, warmup_iters)
+          训练时长 (runner):
+          总训练 epoch 数 (max_epochs)
+          或总迭代次数 (max_iters)
  4. 运行时配置（runtime）：定义一些与训练/测试环境相关的设置，如日志、工作目录、分布式后端、模型保存、随机种子等。
+          default_runtime.py（默认运行时配置）
+       核心作用： 定义与训练/测试环境、日志、模型保存、可视化等相关的通用设置，这些设置通常在不同实验中是相对稳定不变的。
+       包含的主要内容：
+       日志记录配置 (log_config):
+       日志记录间隔 (interval)
+       使用的日志钩子 (如 TextLoggerHook, TensorboardLoggerHook)
+       日志级别
+       检查点配置 (checkpoint_config):
+       模型保存间隔 (interval)
+       保存最佳模型的设置 (如 save_best='auto')
+       评估配置 (evaluation):
+       验证/测试时的评估指标
+       评估间隔 (interval)
+       是否保存预测结果
+       可视化配置 (vis_backends):
+       使用的可视化后端 (如 TensorboardVisBackend)
+       分布式训练配置 (dist_params):
+       分布式后端参数
+       工作目录 (work_dir):
+       保存日志和模型的根目录
+       随机种子 (seed):
+       固定随机种子保证可复现性
+       运行器类型 (runner):
+       指定基于 epoch 还是基于 iteration 的训练 (EpochBasedRunner/IterBasedRunner)
 
 
 示例：
