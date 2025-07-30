@@ -1,3 +1,5 @@
+schedules在训练框架里通常指学习率调度和训练周期规划
+
 # This schedule is mainly used by models with dynamic voxelization
 # optimizer
 lr = 0.003  # max learning rate
